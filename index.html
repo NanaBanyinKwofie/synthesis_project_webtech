@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Fresh Farm Produce: buy fruit, vegetables, eggs and dairy straight from local farmers.">
+  <title>Fresh Farm Produce</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-bar">
+      <a href="index.html" class="logo">Fresh <span class="logo-accent">Farm</span> Produce</a>
+      <form class="search-bar" role="search" onsubmit="return false;">
+        <label for="search-input" class="visually-hidden">Search for fresh produce</label>
+        <input type="search" id="search-input" placeholder="Search for fresh produce&hellip;"
+          oninput="searchProducts(this.value)">
+        <button type="submit" class="search-btn" aria-label="Search">search</button>
+      </form>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <ul>
+      <li><a href="index.html" class="current">Shop</a></li>
+      <li><a href="sell.html">Sell Produce</a></li>
+      <li><a href="#about">About</a></li>
+      <li><button type="button" class="nav-cart-btn" onclick="$('wishlist-dialog').showModal()"> Wishlist (<span
+            id="wishlist-count">0</span>)</button></li>
+      <li><button type="button" class="nav-cart-btn" onclick="$('cart-dialog').showModal()"> Cart (<span
+            id="cart-count">0</span>)</button></li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+    <main>
+      <section class="hero">
+        <h1>From the farm to your doorstep.</h1>
+        <p>Fresh vegetables, fruit, dairy and pantry staples from farmers near you.</p>
+      </section>
+
+      <section class="gallery" aria-label="Photos from our farmers">
+        <figure>
+          <img src="https://images.pexels.com/photos/4975357/pexels-photo-4975357.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="A farmer harvesting fresh vegetables by hand in a green field" loading="lazy">
+        </figure>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/39163298/pexels-photo-39163298.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="A farmer picking green peppers in a sunlit field" loading="lazy">
+        </figure>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/39390685/pexels-photo-39390685.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="Colorful fresh fruits and vegetables at an outdoor market stall" loading="lazy">
+        </figure>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/38534084/pexels-photo-38534084.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="Rows of crops growing in a vibrant green vegetable field" loading="lazy">
+        </figure>
+        <figure>
+          <img src="https://images.pexels.com/photos/5425795/pexels-photo-5425795.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="A basket overflowing with freshly picked vegetables" loading="lazy">
+        </figure>
+      </section>
+
+      <section class="filters">
+        <h2 class="visually-hidden">Browse by category</h2>
+        <p class="filters-label">Shop by category</p>
+        <div class="filter-buttons">
+          <button type="button" class="filter active" onclick="filterProducts('all', this)">All</button>
+          <button type="button" class="filter" onclick="filterProducts('vegetables', this)">Vegetables</button>
+          <button type="button" class="filter" onclick="filterProducts('fruits', this)">Fruits</button>
+          <button type="button" class="filter" onclick="filterProducts('dairy', this)">Dairy &amp; Eggs</button>
+          <button type="button" class="filter" onclick="filterProducts('pantry', this)">Pantry</button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="visually-hidden">Products</h2>
+        <div id="product-list" class="product-grid"></div>
+      </section>
+
+      <section id="about" class="about">
+        <h2>About Fresh Farm Produce</h2>
+        <p>
+          Fresh Farm Produce connects <strong>local farmers here in Ghana</strong> directly with buyers.
+          For farm pick-ups, pick a time to collect, check the produce, then pay.<br>
+          <em>Never</em> send money before you see it.<br>
+          Fresh Farm Produce also handles local deliveries within the same town, and courier delivery anywhere in the
+          country.
+        </p>
+
+        <table>
+          <caption>Delivery options</caption>
+          <thead>
+            <tr>
+              <th scope="col">Option</th>
+              <th scope="col">Where</th>
+              <th scope="col">Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Farm pick-up</th>
+              <td>Collect from the farm</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <th scope="row">Local delivery</th>
+              <td>Within the same town</td>
+              <td>GH₵5-15</td>
+            </tr>
+            <tr>
+              <th scope="row">Courier</th>
+              <td>Anywhere in the country</td>
+              <td>GH₵15-45</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Fees are paid to the person delivering.</td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="cart-dialog" class="cart-dialog">
+    <div class="cart-dialog-head">
+      <h2>Your cart</h2>
+      <button type="button" class="dialog-close" aria-label="Close cart" onclick="$('cart-dialog').close()">✕</button>
+    </div>
+    <ul id="cart-items">
+      <li class="empty">Your cart is empty.</li>
+    </ul>
+    <p id="cart-total" class="cart-total">Total: GH₵0</p>
+    <button type="button" class="btn btn-checkout" onclick="checkout()">Checkout</button>
+    <button type="button" class="btn btn-secondary" onclick="clearCart()">Clear cart</button>
+  </dialog>
+
+  <dialog id="wishlist-dialog" class="cart-dialog">
+    <div class="cart-dialog-head">
+      <h2>Your wishlist</h2>
+      <button type="button" class="dialog-close" aria-label="Close wishlist"
+        onclick="$('wishlist-dialog').close()">✕</button>
+    </div>
+    <ul id="wishlist-items">
+      <li class="empty">Your wishlist is empty.</li>
+    </ul>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h2>Fresh Farm Produce</h2>
+        <p>Connecting local farmers with buyers near you. Meet the seller, check the produce, then pay.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="index.html">All produce</a></li>
+          <li><a href="index.html#product-list">Vegetables &amp; fruit</a></li>
+          <li><a href="sell.html">Sell your produce</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="mailto:help@freshfarmproduce.example?subject=Fresh%20Farm%20Produce%20question">Email us</a></li>
+          <li><a href="tel:0200000000">Call the help desk</a></li>
+          <li><a href="index.html#about">Delivery &amp; pick-up</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom"><small>&copy; 2026 Fresh Farm Produce.</small></p>
+  </footer>
+
+</body>
+
+</html>

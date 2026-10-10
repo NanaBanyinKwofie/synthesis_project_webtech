@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="List your farm produce for sale on Fresh Farm Produce.">
+  <title>Fresh Farm Produce</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-bar">
+      <a href="index.html" class="logo">Fresh <span class="logo-accent">Farm</span> Produce</a>
+      <p class="header-tagline">Sell what you grow or raise.</p>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <ul>
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="sell.html" class="current">Sell Produce</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="sell-page">
+    <h1>Sell your produce</h1>
+    <p>Fill in the form below. Fields marked <span class="req">*</span> are required.</p>
+
+    <form id="sell-form" onsubmit="return listItem()">
+
+      <fieldset>
+        <legend>About the produce</legend>
+
+        <label for="item-name">Produce name <span class="req">*</span></label>
+        <input type="text" id="item-name" name="item_name" required minlength="3" maxlength="40"
+          placeholder="e.g. Fresh tomatoes">
+
+        <label for="category">Category <span class="req">*</span></label>
+        <select id="category" name="category" required>
+          <option value="">-- Choose one --</option>
+          <option value="vegetables">Vegetables</option>
+          <option value="fruits">Fruits</option>
+          <option value="dairy">Dairy &amp; Eggs</option>
+          <option value="pantry">Pantry</option>
+        </select>
+
+        <label for="price">Price in GH₵ <span class="req">*</span></label>
+        <input type="number" id="price" name="price" required min="1" max="10000" step="0.5">
+
+        <label for="description">Short description</label>
+        <textarea id="description" name="description" rows="3" maxlength="200"
+          placeholder="Unit size, growing method, anything a buyer should know?"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Harvested <span class="req">*</span></legend>
+        <label class="inline"><input type="radio" name="condition" value="Today" required> Today</label>
+        <label class="inline"><input type="radio" name="condition" value="This week"> This week</label>
+        <label class="inline"><input type="radio" name="condition" value="Last week"> Last week</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Photo</legend>
+        <label for="photo">Upload or take a photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
+      </fieldset>
+
+      <fieldset>
+        <legend>Your contact details</legend>
+
+        <label for="seller-name">Your name <span class="req">*</span></label>
+        <input type="text" id="seller-name" name="seller_name" required autocomplete="name">
+
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+
+        <label for="phone">Phone (10 digits)</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0241234567" autocomplete="tel">
+      </fieldset>
+
+      <label class="inline">
+        <input type="checkbox" name="agree" value="yes" required>
+        I agree to provide fresh produce and meet buyers at an agreed pick-up point. <span class="req">*</span>
+      </label>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn">List my produce</button>
+        <button type="reset" class="btn btn-secondary">Reset form</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h2>Fresh Farm Produce</h2>
+        <p>Connecting local farmers with buyers near you. Meet the seller, check the produce, then pay.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="index.html">All produce</a></li>
+          <li><a href="index.html#product-list">Vegetables &amp; fruit</a></li>
+          <li><a href="sell.html">Sell your produce</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="mailto:help@freshfarmproduce.example?subject=Fresh%20Farm%20Produce%20question">Email us</a></li>
+          <li><a href="tel:0200000000">Call the help desk</a></li>
+          <li><a href="index.html#about">Delivery &amp; pick-up</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom"><small>&copy; 2026 Fresh Farm Produce.</small></p>
+  </footer>
+
+  <dialog id="listed-dialog">
+    <h2>Produce listed. </h2>
+    <p id="listed-message"></p>
+    <form method="dialog">
+      <button class="btn">Close</button>
+    </form>
+  </dialog>
+
+</body>
+
+</html>
